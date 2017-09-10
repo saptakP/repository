@@ -22,10 +22,10 @@
         <p class="login-box-msg">Login</p>
         <sf:form action="dashboard" method="post" commandName="userBean">
           <div class="form-group has-feedback">
-            <sf:input path="userName" id="txtusername" cssClass="form-control" placeholder="Username"/>
+            <sf:input path="userName" id="txtusername" cssClass="form-control" placeholder="Username" required/>
           </div>
           <div class="form-group has-feedback">
-            <sf:password path="password" id="txtpassword" class="form-control" placeholder="Password"/>
+            <sf:password path="password" id="txtpassword" class="form-control" placeholder="Password" required/>
           </div>
           <div class="row">
             <!-- /.col -->
@@ -38,5 +38,11 @@
         </sf:form>
       </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->
+    <script
+		src="<spring:url value="/static/admin/plugins/jQuery/jQuery-2.1.4.min.js"/>"
+		type="text/javascript"></script>
+	<script
+		src="<spring:url value="/static/admin/bootstrap/js/bootstrap.min.js"/>"
+		type="text/javascript"></script>
   </body>
 </html>

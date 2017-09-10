@@ -9,6 +9,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.WebRequest;
 
 import com.cts.mindbenders.constants.LoginConstant;
+import com.cts.mindbenders.models.UserBean;
 import com.cts.mindbenders.utils.LoginUtil;
 
 public class LoginUtil {
@@ -51,8 +52,8 @@ public class LoginUtil {
 		if(null==request.getSession(false)){
 			isValid=false;
 		}else{
-			String userId=(String) request.getSession(false).getAttribute(LoginConstant.LOGIN_USERID_SESSION_ATTRIBUTE);
-			if(userId != null){
+			UserBean user=(UserBean)request.getSession(false).getAttribute(LoginConstant.LOGIN_USERBEAN_SESSION_ATTRIBUTE);
+			if(user != null){
 				isValid=true;
 			}
 		}
@@ -64,7 +65,8 @@ public class LoginUtil {
 	public static String getUserIdFromSession(HttpSession session){
 		String userId=null;
 		if(null!=session){
-			userId=(String)session.getAttribute(LoginConstant.LOGIN_USERID_SESSION_ATTRIBUTE);
+			UserBean user = (UserBean)session.getAttribute(LoginConstant.LOGIN_USERBEAN_SESSION_ATTRIBUTE);
+			userId = String.valueOf(user.getUserId());
 		}
 		return userId;
 	}

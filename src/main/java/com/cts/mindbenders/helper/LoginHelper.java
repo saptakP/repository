@@ -36,14 +36,23 @@ public class LoginHelper {
 	 * @return boolean
 	 * @throws Exception 
 	 */
-	public UserBean validateCredentials(UserBean user) throws Exception {
+	public UserBean validateCredentials(UserBean user) {
 		logger.debug("Inside validateCredentials - helper");
 		UserBean userBean = null;
-
-		if (user != null && StringUtils.isNotBlank(user.getUserName()) && StringUtils.isNotBlank(user.getPassword())) {
-			userBean  = loginDAO.getActiveUserByCredential(user);
+		try {
+			if (user != null && StringUtils.isNotBlank(user.getUserName()) && StringUtils.isNotBlank(user.getPassword())) {
+				userBean  = loginDAO.getActiveUserByCredential(user);
+			}
+			return userBean;
+		} catch(Exception ex) {
+			
 		}
-		return userBean;
+		return new UserBean();
+	}
+	
+	public UserBean validateUserByRefKey(String refKey) throws Exception {
+		logger.debug("Inside validateUserByRefKey - helper");
+		return loginDAO.validateUserByRefKey(refKey);
 	}
 
 	/**

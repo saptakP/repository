@@ -14,8 +14,7 @@ public class UserBean implements Serializable {
 	private String password;
 	private String userType;
 	private String status;
-	
-	
+	private String refKey;
 	public int getUserId() {
 		return userId;
 	}
@@ -46,11 +45,19 @@ public class UserBean implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+	public String getRefKey() {
+		return refKey;
+	}
+	public void setRefKey(String refKey) {
+		this.refKey = refKey;
+	}
 	@Override
 	public String toString() {
-		return "UserBean [userId=" + userId + ", userName=" + userName + ", password=" + password + ", userType="
-				+ userType + ", status=" + status + "]";
+		return "UserBean [userId=" + userId + ", userName=" + userName + ", userType="
+				+ userType + ", status=" + status + ", refKey=" + refKey + "]";
 	}
+	
+	
+	
 
 }

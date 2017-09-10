@@ -2,6 +2,7 @@
     pageEncoding="utf-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
@@ -15,7 +16,7 @@
     <!-- Ionicons -->
     <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <!-- Theme style -->
-    <link href="<spring:url value="/static/admin/css/uberotel.css"/>" rel="stylesheet" type="text/css" />
+    <link href="<spring:url value="/static/admin/css/hotel.css"/>" rel="stylesheet" type="text/css" />
     <link href="<spring:url value="/static/admin/dist/css/skins/_all-skins.min.css"/>" rel="stylesheet" type="text/css" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -24,6 +25,9 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script>
+    	var _ctx='${pageContext.request.contextPath}';
+    </script>
   </head>
   <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
   <body class="skin-green layout-top-nav">
@@ -47,12 +51,62 @@
 
           <!-- Main content -->
           <section class="content">
-          
+          <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Review List</h3>
 
-<p>Render in table</p>
-<div id="qrcodeTable"></div>
-<p>Render in canvas</p>
-<div id="qrcodeCanvas"></div>
+              <div class="box-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+                  <div class="input-group-btn">
+                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+                <tr>
+                  <th>HOTEL CODE</th>
+                  <th>User</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Reason</th>
+                </tr>
+                <c:forEach items="${reviewList}" var="review">
+                <tr>
+                  <td>${review.hotelName}</td>
+                  <td>${review.userName}</td>
+                  <td>${review.rvwDate}</td>
+                  <td>
+                  <c:choose>
+                  	<c:when test="${review.rvwState == 'PENDING'}">
+                  		<span id="rspi${review.reviewId}" class="label label-warning" onclick="javascript:updateReviewById('${review.reviewId}','A');">Approve</span>
+                  		<span id="rspii${review.reviewId}" class="label label-danger" onclick="javascript:updateReviewById('${review.reviewId}','D');">Reject</span>
+                  	</c:when>
+                  	<c:when test="${review.rvwState == 'A'}">
+                  		<span id="rspi${review.reviewId}" class="label label-success">Approved</span>
+                  		<span id="rspii${review.reviewId}" class="label label-danger" onclick="javascript:updateReviewById('${review.reviewId}','D');">Reject</span>
+                  	</c:when>
+                  	<c:otherwise>
+                  		<span class="label label-danger">Rejected</span>
+                  	</c:otherwise>
+                  </c:choose>
+                  </td>
+                  <td>Admin comments</td>
+                </tr>
+                </c:forEach>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+      </div>
 
           </section><!-- /.content -->
         </div><!-- /.container -->
@@ -65,17 +119,5 @@
     <script src="<spring:url value="/static/admin/bootstrap/js/bootstrap.min.js"/>" type="text/javascript"></script>
     <script src="<spring:url value="/static/admin/dist/js/app.min.js"/>" type="text/javascript"></script>
     <script src="<spring:url value="/static/admin/js/dashboard.js"/>" type="text/javascript"></script>
-    <script type="text/javascript" src="<spring:url value="/static/admin/js/jquery.qrcode.js"/>"></script>
-	<script type="text/javascript" src="<spring:url value="/static/admin/js/qrcode.js"/>"></script>
-	<script>
-	//jQuery('#qrcode').qrcode("this plugin is great");
-	jQuery('#qrcodeTable').qrcode({
-		render	: "table",
-		text	: "http://2a80fee6.ngrok.io/damweb/dashboard"
-	});	
-	jQuery('#qrcodeCanvas').qrcode({
-		text	: "http://2a80fee6.ngrok.io/damweb/dashboard"
-	});	
-</script>
   </body>
 </html>

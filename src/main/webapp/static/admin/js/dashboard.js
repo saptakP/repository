@@ -17,3 +17,24 @@ function manageAccessibleHotelById(formId, hotelId,  action, htlName) {
 	document.getElementById(formId).submit();
 	
 }
+
+function updateReviewById(reviewId,status) {
+	$.ajax({
+        type: 'GET',
+        url: _ctx + '/updateReview',
+        data : {reviewId:reviewId, status:status},
+        success : function(response) {
+        	var res = response;
+        	if(res === 'S') {
+        		alert(res);
+        		$('#rspi'+reviewId+' span').text('Approved');
+        		$('#rspi'+reviewId+' span').prop('onclick',null).off('click');
+        	} else {
+        		
+        	}
+        },
+        error : function() {
+           
+        }
+    });
+}

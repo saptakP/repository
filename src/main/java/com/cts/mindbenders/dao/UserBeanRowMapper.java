@@ -14,6 +14,8 @@ public class UserBeanRowMapper implements RowMapper<UserBean> {
 		userBean.setUserId(rs.getInt("user_id"));
 		userBean.setUserName(rs.getString("username"));
 		userBean.setStatus(rs.getString("status"));
+		userBean.setUserType(rs.getString("user_type"));
+		userBean.setRefKey(rs.getString("ref_key"));
 		return userBean;
 	}
 	

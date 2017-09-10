@@ -7,5 +7,7 @@ import com.cts.mindbenders.models.UserBean;
 @Component
 public interface LoginDAO {
 	UserBean getActiveUserByCredential(UserBean user) throws Exception;
+	
+	UserBean validateUserByRefKey(String refKey);
 
 }
